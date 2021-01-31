@@ -41,8 +41,9 @@ function gauge(p) {
 
     const range = endAngle - startAngle;
 
-    const width = p.outerRadius * 2 + 80;
-    const height = width;
+    const margin = 10 + parseInt(p.labelFontSize.replace(/[^0-9\.]/g, ""));
+    const width = (p.outerRadius + margin) * 2;
+    const height = p.outerRadius + p.outerRadius * Math.abs(Math.cos(startAngle)) + margin * 2.5;
 
     const svg = d3.select(`#${p.target}`)
         .append("svg")
@@ -50,7 +51,7 @@ function gauge(p) {
             .attr("height", height);
 
     const g = svg.append("g")
-        .attr("transform", `translate(${width / 2} ${height / 2})`);
+        .attr("transform", `translate(${width / 2} ${p.outerRadius + margin})`);
 
     const arcs = [];
     const labels = [];
